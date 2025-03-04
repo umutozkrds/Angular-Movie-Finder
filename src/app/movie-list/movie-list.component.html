@@ -1,0 +1,28 @@
+<div class="container mt-4">
+    <h2 class="text-center mb-4">Top 250 Movies</h2>
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+        <div class="col" *ngFor="let movie of movies">
+            <div class="movie-card">
+                <div class="movie-poster">
+                    <img [src]="movie.img || 'https://via.placeholder.com/300x450?text=No+Image'"
+                        [alt]="movie.Title" class="card-img" (error)="handleImageError($event)">
+                    <div class="movie-rating">
+                        <span class="rating-badge">
+                            <i class="fas fa-star"></i> {{movie.imdb | number:'1.1-1'}}
+                        </span>
+                    </div>
+                </div>
+                <div class="movie-info">
+                    <h5 class="movie-title">{{movie.Title}}</h5>
+                    <div class="movie-meta">
+                        <span class="year">{{movie.Year}}</span>
+                        <span class="genre">{{movie.Genres}}</span>
+                    </div>
+                    <a [href]="movie.MovieLink" target="_blank" class="btn btn-primary btn-sm mt-2 w-100">
+                        View on IMDb
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
