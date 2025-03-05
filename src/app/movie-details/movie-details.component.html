@@ -1,0 +1,50 @@
+<div class="container my-4">
+    <div class="movie-container row g-4">
+        <!-- Movie Poster -->
+        <div class="col-md-4">
+            <div class="poster-wrapper">
+                <img [src]="movie?.img || 'https://via.placeholder.com/300x450?text=Movie+Poster'" [alt]="movie?.title"
+                    class="movie-poster rounded shadow" style="width: 100%; max-height: 600px; object-fit: contain;">
+            </div>
+        </div>
+
+        <!-- Movie Details -->
+        <div class="col-md-8">
+            <h1 class="movie-title mb-4">{{ movie?.title }}</h1>
+
+            <div class="movie-meta mb-4">
+                <span class="me-4"><i class="bi bi-calendar"></i> <strong>Year:</strong> {{ movie?.year }}</span>
+                <span class="me-4"><i class="bi bi-star-fill text-warning"></i> <strong>IMDb:</strong> {{
+                    movie?.imdbRating }}</span>
+                <span><i class="bi bi-film"></i> <strong>Type:</strong> {{ movie?.type }}</span>
+            </div>
+
+            <div class="movie-genres mb-4">
+                <h5 class="mb-2">Genres</h5>
+                <span *ngFor="let genre of movie?.genres" class="badge bg-primary me-2 p-2">{{ genre }}</span>
+            </div>
+
+            <div class="movie-crew mb-4">
+                <h5 class="mb-2">Director</h5>
+                <p>{{ movie?.director }}</p>
+
+                <h5 class="mb-2">Cast</h5>
+                <p>
+                    <span *ngFor="let actor of movie?.actors; let last = last">
+                        {{ actor }}{{ last ? '' : ', ' }}
+                    </span>
+                </p>
+            </div>
+
+            <div class="movie-description mb-4">
+                <h5 class="mb-2">Overview</h5>
+                <p class="lead">{{ movie?.description }}</p>
+            </div>
+
+            <div class="movie-budget">
+                <h5 class="mb-2">Budget</h5>
+                <p class="fs-5">${{ movie?.budget | number }}</p>
+            </div>
+        </div>
+    </div>
+</div>

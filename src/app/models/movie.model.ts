@@ -1,4 +1,5 @@
 export interface Movie {
+    imdbID: string;
     Title: string;
     Year: number;
     imdb: number;
