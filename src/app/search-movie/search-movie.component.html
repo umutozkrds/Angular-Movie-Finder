@@ -1,0 +1,44 @@
+<div class="container py-5">
+    <div class="search-container text-center">
+        <h2 class="mb-4">Discover Movies</h2>
+        <div class="search-box mx-auto">
+            <div class="input-group">
+                <input type="text" [(ngModel)]="searchQuery" (keyup.enter)="searchMovies()"
+                    (input)="onSearch(searchQuery)" class="form-control search-input" placeholder="Search for movies..."
+                    aria-label="Search movies">
+                <button class="btn btn-primary search-btn" (click)="searchMovies()">
+                    <i class="bi bi-search"></i> Search
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Search Results -->
+    <div class="search-results mt-5" *ngIf="movies.length > 0">
+        <h3 class="section-title mb-4">Search Results</h3>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+            <div class="col" *ngFor="let movie of movies">
+                <a [routerLink]="['/movie-details', movie.imdbID]" class="movie-link">
+                    <div class="movie-card">
+                        <div class="movie-poster">
+                            <img [src]="movie.img || 'https://via.placeholder.com/300x450?text=No+Image'"
+                                [alt]="movie.Title" class="card-img" (error)="handleImageError($event)">
+                            <div class="movie-rating">
+                                <span class="rating-badge">
+                                    <i class="bi bi-star-fill"></i> {{movie.imdb | number:'1.1-1'}}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="movie-info">
+                            <h5 class="movie-title">{{movie.Title}}</h5>
+                            <div class="movie-meta">
+                                <span class="year">{{movie.Year}}</span>
+                                <span class="genre">{{movie.Genres}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

@@ -8,6 +8,8 @@ import { MovieListComponent } from './movie-list/movie-list.component';
 import { HomeComponent } from './home/home.component';
 import { HttpClientModule } from '@angular/common/http';
 import { MovieDetailsComponent } from './movie-details/movie-details.component';
+import { SearchMovieComponent } from './search-movie/search-movie.component';
+import { FormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
@@ -15,12 +17,14 @@ import { MovieDetailsComponent } from './movie-details/movie-details.component';
     NavbarComponent,
     MovieListComponent,
     HomeComponent,
-    MovieDetailsComponent
+    MovieDetailsComponent,
+    SearchMovieComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [
     provideClientHydration(withEventReplay())

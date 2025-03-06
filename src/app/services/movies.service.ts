@@ -55,5 +55,26 @@ export class MoviesService {
         );
     }
 
+    searchMovies(query: string): Observable<Movie[]> {
+       return this.http.get<any>(`https://imdb236.p.rapidapi.com/imdb/autocomplete?query=${query}`, { headers: this.httpHeaders }).pipe(
+        map(response => {
+            if (!response) {
+                return [];
+            }
+
+            return response.map((movie: any) => ({
+                imdbID: movie.id,
+                Title: movie.originalTitle,
+                Year: movie.startYear,
+                imdb: movie.averageRating,
+                Type: movie.type,
+                MovieLink: movie.url || `https://www.imdb.com/title/${movie.id}`,
+                img: movie.primaryImage || '',
+                Genres: movie.genres?.[0] || 'N/A'
+                }));
+            })
+        );
+    }
+
 }
 
