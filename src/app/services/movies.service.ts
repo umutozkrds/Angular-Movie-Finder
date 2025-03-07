@@ -76,5 +76,9 @@ export class MoviesService {
         );
     }
 
+    getFavorites(): Movie[] {
+        return JSON.parse(localStorage.getItem('favorites') || '[]');
+    }
+
 }
 

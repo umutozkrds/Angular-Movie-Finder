@@ -7,4 +7,5 @@ export interface Movie {
     MovieLink: string;
     img: string;
     Genres: string[];
+    isFavorite: boolean;
 }

@@ -10,4 +10,5 @@ export interface MovieDetail {
     director: string;
     description: string;
     img: string;
+    isFavorite?: boolean;
 }

@@ -45,6 +45,10 @@
                 <h5 class="mb-2">Budget</h5>
                 <p class="fs-5">${{ movie?.budget | number }}</p>
             </div>
+            <button *ngIf="movie" (click)="toggleFavorite(movie)" class="btn btn-outline-danger">
+                <i class="bi" [class.bi-heart-fill]="movie.isFavorite" [class.bi-heart]="!movie.isFavorite"></i>
+                {{ movie.isFavorite ? 'Remove from Favorites' : 'Add to Favorites' }}
+            </button>
         </div>
     </div>
 </div>

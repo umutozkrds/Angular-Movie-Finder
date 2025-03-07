@@ -10,6 +10,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { MovieDetailsComponent } from './movie-details/movie-details.component';
 import { SearchMovieComponent } from './search-movie/search-movie.component';
 import { FormsModule } from '@angular/forms';
+import { FavoriteComponent } from './favorite/favorite.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,7 +19,8 @@ import { FormsModule } from '@angular/forms';
     MovieListComponent,
     HomeComponent,
     MovieDetailsComponent,
-    SearchMovieComponent
+    SearchMovieComponent,
+    FavoriteComponent
   ],
   imports: [
     BrowserModule,
