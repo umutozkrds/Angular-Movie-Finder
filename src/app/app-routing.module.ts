@@ -8,7 +8,7 @@ import { FavoriteComponent } from './favorite/favorite.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'movie-list', component: MovieListComponent },
+  { path: 'top-250-movies', component: MovieListComponent },
   { path: 'movie-details/:id', component: MovieDetailsComponent },
   { path: 'search-movie', component: SearchMovieComponent },
   { path: 'my-favorites', component: FavoriteComponent },

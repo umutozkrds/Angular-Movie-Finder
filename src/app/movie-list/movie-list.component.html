@@ -2,9 +2,8 @@
     <h2 class="text-center mb-4">Top 250 Movies</h2>
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
         <div class="col" *ngFor="let movie of movies">
-
             <div class="movie-card">
-                <a [routerLink]="['/movie-details', movie.imdbID]" class="movie-link">
+                    <a [routerLink]="['/movie-details', movie.imdbID]" class="movie-link">
                     <div class="movie-poster">
                         <img [src]="movie.img || 'https://via.placeholder.com/300x450?text=No+Image'"
                             [alt]="movie.Title" class="card-img" (error)="handleImageError($event)">
@@ -14,7 +13,7 @@
                             </span>
                         </div>
                     </div>
-                </a>
+                    </a>
                     <div class="movie-info">
                         <h5 class="movie-title">{{movie.Title}}</h5>
                         <div class="movie-meta">
@@ -22,15 +21,11 @@
                             <span class="genre">{{movie.Genres}}</span>
                         </div>
                         <button (click)="toggleFavorite(movie)" class="btn btn-outline-danger">
-                        <i class="fas" [class.fa-heart]="movie.isFavorite" [class.fa-heart-o]="!movie.isFavorite"></i> 
-                        {{ movie.isFavorite ? 'Remove from Favorites' : 'Add to Favorites' }}
+                            <i class="fas" [class.fa-heart]="movie.isFavorite" [class.fa-heart-o]="!movie.isFavorite"></i> 
+                            {{ movie.isFavorite ? 'Remove from Favorites' : 'Add to Favorites' }}
                         </button> 
                     </div>
-                
-                
             </div>
-
-
         </div>
     </div>
 </div>
