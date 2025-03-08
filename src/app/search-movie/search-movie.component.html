@@ -18,30 +18,14 @@
         <h3 class="section-title mb-4">Search Results</h3>
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
             <div class="col" *ngFor="let movie of movies">
-                <div class="movie-card">
-                        <a [routerLink]="['/movie-details', movie.imdbID]" class="movie-link">
-                        <div class="movie-poster">
-                            <img [src]="movie.img || 'https://via.placeholder.com/300x450?text=No+Image'"
-                                [alt]="movie.Title" class="card-img" (error)="handleImageError($event)">
-                            <div class="movie-rating">
-                                <span class="rating-badge">
-                                    <i class="fas fa-star"></i> {{movie.imdb | number:'1.1-1'}}
-                                </span>
-                            </div>
-                        </div>
-                        </a>
-                        <div class="movie-info">
-                            <h5 class="movie-title">{{movie.Title}}</h5>
-                            <div class="movie-meta">
-                                <span class="year">{{movie.Year}}</span>
-                                <span class="genre">{{movie.Genres}}</span>
-                            </div>
-                            <button (click)="toggleFavorite(movie)" class="btn btn-outline-danger">
-                                <i class="fas" [class.fa-heart]="movie.isFavorite" [class.fa-heart-o]="!movie.isFavorite"></i> 
-                                {{ movie.isFavorite ? 'Remove from Favorites' : 'Add to Favorites' }}
-                            </button> 
-                        </div>
-                </div>
+                <app-movie-card
+                [movie]="movie"
+                [isFavorite]="isFavorite(movie.imdbID)"
+                [isWatchlist]="isWatchlist(movie.imdbID)"
+                (favoriteToggle)="toggleFavorite(movie)"
+                (watchlistToggle)="toggleWatchlist(movie)"
+                >
+                </app-movie-card>
             </div>
         </div>
     </div>

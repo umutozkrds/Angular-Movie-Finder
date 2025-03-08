@@ -15,8 +15,8 @@ export class MovieListComponent implements OnInit {
   movies: Movie[] = [];
   constructor(
     private moviesService: MoviesService,
-    private favoriteService: FavoriteService,
-    private watchlistService: WatchlistService
+    public favoriteService: FavoriteService,
+    public watchlistService: WatchlistService
   ) { }
 
   ngOnInit(): void {
@@ -40,9 +40,19 @@ export class MovieListComponent implements OnInit {
     movie.isFavorite = !movie.isFavorite;
     this.favoriteService.saveFavorite(movie);
   }
+
+  
+
   toggleWatchlist(movie: Movie): void {
-    movie.isWatchlist = !movie.isWatchlist;  
+    movie.isWatchlist = !movie.isWatchlist;
     this.watchlistService.saveWatchlist(movie);
   }
   
+  isFavorite(imdbID: string): boolean {
+    return this.favoriteService.getFavorites().some(movie => movie.imdbID === imdbID);
+  }
+
+  isWatchlist(imdbID: string): boolean {
+    return this.watchlistService.getWatchlist().some(movie => movie.imdbID === imdbID);
+  }
 }

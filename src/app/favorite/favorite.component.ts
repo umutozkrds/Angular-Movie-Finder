@@ -36,4 +36,11 @@ export class FavoriteComponent implements OnInit {
     movie.isWatchlist = !movie.isWatchlist;
     this.watchlistService.saveWatchlist(movie);
   }
+  isFavorite(imdbID: string): boolean {
+    return this.favoriteService.getFavorites().some(movie => movie.imdbID === imdbID);
+  }
+
+  isWatchlist(imdbID: string): boolean {
+    return this.watchlistService.getWatchlist().some(movie => movie.imdbID === imdbID);
+  }
 }

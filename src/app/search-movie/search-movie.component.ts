@@ -4,13 +4,14 @@ import { MoviesService } from '../services/movies.service';
 import { Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { FavoriteService } from '../services/favorite.service';
+import { WatchlistService } from '../services/watchlist.service';
 
 @Component({
   selector: 'app-search-movie',
   standalone: false,
   templateUrl: './search-movie.component.html',
   styleUrl: './search-movie.component.css',
-  providers: [MoviesService, FavoriteService]
+  providers: [MoviesService, FavoriteService, WatchlistService]
 })
 export class SearchMovieComponent implements OnInit {
   handleImageError($event: ErrorEvent) {
@@ -22,7 +23,8 @@ export class SearchMovieComponent implements OnInit {
 
   constructor(
     private moviesService: MoviesService,
-    private favoriteService: FavoriteService
+    private favoriteService: FavoriteService,
+    private watchlistService: WatchlistService
   ) { }
 
   ngOnInit(): void {
@@ -34,6 +36,7 @@ export class SearchMovieComponent implements OnInit {
       movies => {
             this.movies = movies;
             this.favoriteService.checkFavorites(this.movies);
+            this.watchlistService.checkWatchlist(this.movies);
       },
       error => {
           console.error('Error fetching movies:', error);
@@ -58,9 +61,20 @@ export class SearchMovieComponent implements OnInit {
     );
   }
   toggleFavorite(movie: Movie): void {
-    movie.isFavorite = !movie.isFavorite;  // Favori durumunu tersine çevir
-
-    // Favoriyi kaydet (localStorage veya backend kullanarak)
+    movie.isFavorite = !movie.isFavorite;  
     this.favoriteService.saveFavorite(movie);
+  }
+
+  toggleWatchlist(movie: Movie): void {
+    movie.isWatchlist = !movie.isWatchlist;
+    this.watchlistService.saveWatchlist(movie);
+  }
+
+  isFavorite(imdbID: string): boolean {
+    return this.favoriteService.getFavorites().some(movie => movie.imdbID === imdbID);
+  }
+
+  isWatchlist(imdbID: string): boolean {
+    return this.watchlistService.getWatchlist().some(movie => movie.imdbID === imdbID);
   }
 }
