@@ -1,5 +1,5 @@
 <div class="container mt-4">
-    <h2 class="text-center mb-4">My Favorites</h2>
+    <h2 class="text-center mb-4">My Watchlist</h2>
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
         <div class="col" *ngFor="let movie of movies">
 
@@ -22,14 +22,14 @@
                         <span class="genre">{{movie.Genres}}</span>
                     </div>
                     <button (click)="toggleFavorite(movie)" class="btn btn-outline-danger">
-                        <i class="fas" [class.fa-heart]="movie.isFavorite" [class.fa-heart-o]="!movie.isFavorite"></i>
+                        <i class="fas" [class.fa-heart]="movie.isFavorite" [class.fa-heart-o]="!movie.isFavorite"></i> 
                         {{ movie.isFavorite ? 'Remove from Favorites' : 'Add to Favorites' }}
                     </button>
                     <button (click)="toggleWatchlist(movie)" class="btn btn-outline-danger">
                         <i class="fas" [class.fa-heart]="movie.isWatchlist" [class.fa-heart-o]="!movie.isWatchlist"></i>
                         {{ movie.isWatchlist ? 'Remove from Watchlist' : 'Add to Watchlist' }}
                     </button>
-                </div>
+                </div>  
 
 
             </div>

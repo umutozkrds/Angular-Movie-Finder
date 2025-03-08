@@ -11,4 +11,5 @@ export interface MovieDetail {
     description: string;
     img: string;
     isFavorite?: boolean;
+    isWatchlist?: boolean;
 }

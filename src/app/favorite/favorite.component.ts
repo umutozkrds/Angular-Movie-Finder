@@ -2,13 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { MoviesService } from '../services/movies.service';
 import { Movie } from '../models/movie.model';
 import { FavoriteService } from '../services/favorite.service';
+import { WatchlistService } from '../services/watchlist.service';
 
 @Component({
   selector: 'app-favorite',
   standalone: false,
   templateUrl: './favorite.component.html',
   styleUrl: './favorite.component.css',
-  providers: [MoviesService, FavoriteService]
+  providers: [FavoriteService, WatchlistService]
 })
 export class FavoriteComponent implements OnInit {
   handleImageError($event: ErrorEvent) {
@@ -17,22 +18,22 @@ export class FavoriteComponent implements OnInit {
   movies: Movie[] = [];
 
   constructor(
-    private moviesService: MoviesService,
-    private favoriteService: FavoriteService
+    private favoriteService: FavoriteService,
+    private watchlistService: WatchlistService
   ) { }
 
   ngOnInit(): void {
-    this.movies = this.moviesService.getFavorites();
+    this.movies = this.favoriteService.getFavorites();
     this.favoriteService.checkFavorites(this.movies);
+    this.watchlistService.checkWatchlist(this.movies);
   }
 
   toggleFavorite(movie: Movie): void {
-    movie.isFavorite = !movie.isFavorite;  // Favori durumunu tersine çevir
-    // Favoriyi kaydet (localStorage veya backend kullanarak)
+    movie.isFavorite = !movie.isFavorite;
     this.favoriteService.saveFavorite(movie);
   }
-
- 
-
-  
+  toggleWatchlist(movie: Movie): void {
+    movie.isWatchlist = !movie.isWatchlist;
+    this.watchlistService.saveWatchlist(movie);
+  }
 }

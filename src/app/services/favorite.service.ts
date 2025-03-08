@@ -4,7 +4,6 @@ import { Movie } from "../models/movie.model";
 @Injectable()
 export class FavoriteService {
     saveFavorite(movie: Movie): void {
-        // Favorileri yerel depolama veya backend'e kaydet
         const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
         if (movie.isFavorite) {
           favorites.push(movie);
@@ -25,5 +24,8 @@ export class FavoriteService {
         });
       }
 
+      getFavorites(): Movie[] {
+        return JSON.parse(localStorage.getItem('favorites') || '[]');
+    }
 }
 

@@ -11,6 +11,8 @@ import { MovieDetailsComponent } from './movie-details/movie-details.component';
 import { SearchMovieComponent } from './search-movie/search-movie.component';
 import { FormsModule } from '@angular/forms';
 import { FavoriteComponent } from './favorite/favorite.component';
+import { WatchlistComponent } from './watchlist/watchlist.component';
+import { MovieCardComponent } from './shared/movie-card/movie-card.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,7 +22,9 @@ import { FavoriteComponent } from './favorite/favorite.component';
     HomeComponent,
     MovieDetailsComponent,
     SearchMovieComponent,
-    FavoriteComponent
+    FavoriteComponent,
+    WatchlistComponent,
+    MovieCardComponent
   ],
   imports: [
     BrowserModule,

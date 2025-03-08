@@ -3,25 +3,32 @@ import { MoviesService } from '../services/movies.service';
 import { MovieDetail } from '../models/movie-detail.model';
 import { ActivatedRoute } from '@angular/router';
 import { Movie } from '../models/movie.model';
+import { WatchlistService } from '../services/watchlist.service';
+import { FavoriteService } from '../services/favorite.service';
 
 @Component({
   selector: 'app-movie-details',
   standalone: false,
   templateUrl: './movie-details.component.html',
   styleUrl: './movie-details.component.css',
-  providers: [MoviesService]
+  providers: [MoviesService, FavoriteService, WatchlistService]
 })
 export class MovieDetailsComponent implements OnInit {
   movie: MovieDetail | undefined;
-  constructor(private route: ActivatedRoute, private moviesService: MoviesService) { }
+  constructor(private route: ActivatedRoute,
+    private moviesService: MoviesService,
+    private favoriteService: FavoriteService,
+    private watchlistService: WatchlistService
+  ) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       this.moviesService.getMovieById(params['id']).subscribe(movie => {
         try {
           this.movie = movie
-          this.checkFavorites(movie);
-        } catch (error) {
+          this.favoriteService.checkFavorites(movie as any);
+          this.watchlistService.checkWatchlist(movie as any);
+        } catch (error) { 
           console.error('Error fetching movie details:', error);
         }
       });
@@ -29,24 +36,12 @@ export class MovieDetailsComponent implements OnInit {
   }
   toggleFavorite(movie: MovieDetail): void {
     (movie as any).isFavorite = !(movie as any).isFavorite;
-    this.saveFavorite(movie);
+    this.favoriteService.saveFavorite(movie as any);
+  }
+  toggleWatchlist(movie: MovieDetail): void {
+    (movie as any).isWatchlist = !(movie as any).isWatchlist;
+    this.watchlistService.saveWatchlist(movie as any);
   }
 
-  saveFavorite(movie: MovieDetail): void {
-    const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
-    if ((movie as any).isFavorite) {
-      favorites.push(movie);
-    } else {
-      const index = favorites.findIndex((fav: Movie) => fav.imdbID === movie.imdbID);
-      if (index !== -1) {
-        favorites.splice(index, 1);
-      }
-    }
-    localStorage.setItem('favorites', JSON.stringify(favorites));
-  }
 
-  checkFavorites(movie: MovieDetail): void {
-    const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
-    (movie as any).isFavorite = favorites.some((fav: Movie) => fav.imdbID === movie.imdbID);
-  }
 }

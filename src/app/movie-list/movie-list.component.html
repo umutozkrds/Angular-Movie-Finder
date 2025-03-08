@@ -23,6 +23,10 @@
                         <button (click)="toggleFavorite(movie)" class="btn btn-outline-danger">
                             <i class="fas" [class.fa-heart]="movie.isFavorite" [class.fa-heart-o]="!movie.isFavorite"></i> 
                             {{ movie.isFavorite ? 'Remove from Favorites' : 'Add to Favorites' }}
+                        </button>
+                        <button (click)="toggleWatchlist(movie)" class="btn btn-outline-danger">
+                            <i class="fas" [class.fa-heart]="movie.isWatchlist" [class.fa-heart-o]="!movie.isWatchlist"></i>
+                            {{ movie.isWatchlist ? 'Remove from Watchlist' : 'Add to Watchlist' }}
                         </button> 
                     </div>
             </div>

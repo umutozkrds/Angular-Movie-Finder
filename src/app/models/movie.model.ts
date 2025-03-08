@@ -8,4 +8,5 @@ export interface Movie {
     img: string;
     Genres: string[];
     isFavorite: boolean;
+    isWatchlist: boolean;
 }

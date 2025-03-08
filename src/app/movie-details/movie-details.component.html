@@ -49,6 +49,10 @@
                 <i class="bi" [class.bi-heart-fill]="movie.isFavorite" [class.bi-heart]="!movie.isFavorite"></i>
                 {{ movie.isFavorite ? 'Remove from Favorites' : 'Add to Favorites' }}
             </button>
+            <button *ngIf="movie" (click)="toggleWatchlist(movie)" class="btn btn-outline-danger">
+                <i class="bi" [class.bi-heart-fill]="movie.isWatchlist" [class.bi-heart]="!movie.isWatchlist"></i>
+                {{ movie.isWatchlist ? 'Remove from Watchlist' : 'Add to Watchlist' }}
+            </button>
         </div>
     </div>
 </div>
