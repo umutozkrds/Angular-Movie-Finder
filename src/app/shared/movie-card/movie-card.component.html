@@ -1,14 +1,14 @@
 <div class="movie-card">
     <a [routerLink]="['/movie-details', movie.imdbID]" class="movie-link">
-    <div class="movie-poster">
-        <img [src]="movie.img || 'https://via.placeholder.com/300x450?text=No+Image'"
-            [alt]="movie.Title" class="card-img" (error)="handleImageError($event)">
-        <div class="movie-rating">
-            <span class="rating-badge">
-                <i class="fas fa-star"></i> {{movie.imdb | number:'1.1-1'}}
-            </span>
+        <div class="movie-poster">
+            <img [src]="movie.img || 'https://via.placeholder.com/300x450?text=No+Image'" [alt]="movie.Title"
+                class="card-img" (error)="handleImageError($event)">
+            <div class="movie-rating">
+                <span class="rating-badge">
+                    <i class="fas fa-star"></i> {{movie.imdb | number:'1.1-1'}}
+                </span>
+            </div>
         </div>
-    </div>
     </a>
     <div class="movie-info">
         <h5 class="movie-title">{{movie.Title}}</h5>
@@ -16,13 +16,15 @@
             <span class="year">{{movie.Year}}</span>
             <span class="genre">{{movie.Genres}}</span>
         </div>
-        <button (click)="toggleFavorite()" class="btn btn-outline-danger">
-            <i class="fas" [class.fa-heart]="movie.isFavorite" [class.fa-heart-o]="!movie.isFavorite"></i> 
-            {{ movie.isFavorite ? 'Remove from Favorites' : 'Add to Favorites' }}
-        </button>
-        <button (click)="toggleWatchlist()" class="btn btn-outline-danger">
-            <i class="fas" [class.fa-heart]="movie.isWatchlist" [class.fa-heart-o]="!movie.isWatchlist"></i>
-            {{ movie.isWatchlist ? 'Remove from Watchlist' : 'Add to Watchlist' }}
-        </button> 
+        <div class="action-buttons">
+            <button (click)="toggleFavorite()" class="btn btn-action" [class.active]="movie.isFavorite">
+                <i class="fas" [class.fa-heart]="movie.isFavorite" [class.fa-heart-o]="!movie.isFavorite"></i>
+                <span class="button-text">{{ movie.isFavorite ? 'Favorited' : 'Favorite' }}</span>
+            </button>
+            <button (click)="toggleWatchlist()" class="btn btn-action watchlist-btn" [class.active]="movie.isWatchlist">
+                <i class="fas" [class.fa-bookmark]="movie.isWatchlist" [class.fa-bookmark-o]="!movie.isWatchlist"></i>
+                <span class="button-text">{{ movie.isWatchlist ? 'Watchlisted' : 'Watchlist' }}</span>
+            </button>
+        </div>
     </div>
 </div>
