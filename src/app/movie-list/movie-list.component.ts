@@ -13,6 +13,9 @@ import { WatchlistService } from '../services/watchlist.service';
 })
 export class MovieListComponent implements OnInit {
   movies: Movie[] = [];
+  isLoading: boolean = false;
+  error: string | null = null;
+
   constructor(
     private moviesService: MoviesService,
     public favoriteService: FavoriteService,
@@ -20,16 +23,30 @@ export class MovieListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.loadMovies();
+  }
+
+  loadMovies(): void {
+    this.isLoading = true;
+    this.error = null;
+
     this.moviesService.getMovies().subscribe({
-      next: (movies) => {
+      next: (movies: Movie[]) => {
         this.movies = movies;
+        this.isLoading = false;
         this.favoriteService.checkFavorites(this.movies);
         this.watchlistService.checkWatchlist(this.movies);
       },
-      error: (error) => {
-        console.error('Error fetching movies:', error);
+      error: (error: any) => {
+        this.error = 'Failed to load movies. Please try again.';
+        this.isLoading = false;
+        console.error('Error loading movies:', error);
       }
     });
+  }
+
+  retryLoading(): void {
+    this.loadMovies();
   }
 
   handleImageError(event: any) {
@@ -41,13 +58,11 @@ export class MovieListComponent implements OnInit {
     this.favoriteService.saveFavorite(movie);
   }
 
-  
-
   toggleWatchlist(movie: Movie): void {
     movie.isWatchlist = !movie.isWatchlist;
     this.watchlistService.saveWatchlist(movie);
   }
-  
+
   isFavorite(imdbID: string): boolean {
     return this.favoriteService.getFavorites().some(movie => movie.imdbID === imdbID);
   }
